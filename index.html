@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portofolio — Rillzy Dex</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", system-ui, monospace;
+    }
+
+    :root {
+      --aurora-1: #00f5ff;
+      --aurora-2: #ff00ff;
+      --aurora-3: #00ff9d;
+      --vapor-pink: #ff6ad5;
+      --vapor-blue: #7b61ff;
+      --kaca-bg: rgba(15, 20, 35, 0.65);
+      --kaca-border: rgba(255, 255, 255, 0.18);
+      --teks: #f0f4ff;
+      --abu-terang: #b8c6e8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(
+        135deg,
+        var(--aurora-1),
+        var(--aurora-2),
+        var(--aurora-3),
+        var(--vapor-blue)
+      );
+      background-size: 400% 400%;
+      animation: auroraMove 12s ease infinite;
+      color: var(--teks);
+      line-height: 1.7;
+      padding: 2rem 1.2rem;
+    }
+
+    @keyframes auroraMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* ---------- Navbar ---------- */
+    .navbar {
+      position: sticky;
+      top: 1rem;
+      z-index: 50;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      background: var(--kaca-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--kaca-border);
+      border-radius: 16px;
+      padding: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .navbar a {
+      color: var(--teks);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 0.4rem 0.9rem;
+      border-radius: 10px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .navbar a:hover,
+    .navbar a:focus-visible {
+      background: rgba(0, 245, 255, 0.15);
+      color: var(--aurora-1);
+      outline: none;
+    }
+
+    /* ---------- Glass Card ---------- */
+    .glass-card {
+      background: var(--kaca-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--kaca-border);
+      border-radius: 18px 24px 20px 26px;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+      padding: 2rem;
+      margin-bottom: 2.2rem;
+      scroll-margin-top: 5rem;
+    }
+
+    header { text-align: center; }
+
+    .nama-kecil {
+      font-size: 1.3rem;
+      color: var(--aurora-1);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 8px var(--aurora-1);
+    }
+
+    .selamat-datang {
+      font-size: 0.95rem;
+      color: var(--abu-terang);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(
+        90deg,
+        var(--aurora-1),
+        var(--vapor-pink),
+        var(--aurora-3)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .deskripsi-hero {
+      font-size: 1.05rem;
+      color: var(--abu-terang);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* ---------- Stats ---------- */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2.2rem;
+    }
+
+    @media (max-width: 600px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .stat-card {
+      background: rgba(30, 38, 60, 0.55);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--aurora-1);
+    }
+
+    .stat-num {
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--aurora-1);
+      margin-bottom: 0.3rem;
+      letter-spacing: 1px;
+    }
+
+    .stat-label { font-size: 0.85rem; color: var(--abu-terang); }
+
+    /* ---------- Sections ---------- */
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+      color: var(--aurora-1);
+    }
+
+    .tentang p {
+      color: var(--abu-terang);
+      margin-bottom: 1rem;
+    }
+
+    .tentang p:last-child { margin-bottom: 0; }
+
+    .skill-group h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--vapor-pink);
+    }
+
+    .skill-item { margin-bottom: 1rem; }
+    .skill-item:last-child { margin-bottom: 0; }
+
+    .skill-nama {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .skill-bar-wrap {
+      width: 100%;
+      height: 9px;
+      background: rgba(80, 95, 130, 0.45);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .skill-bar {
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        var(--aurora-1),
+        var(--vapor-pink),
+        var(--aurora-3)
+      );
+      border-radius: 999px;
+      transition: width 1.2s ease;
+    }
+
+    /* ---------- Galeri ---------- */
+    .galeri-desc {
+      color: var(--abu-terang);
+      margin-bottom: 1.5rem;
+    }
+
+    .galeri-tabs {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .galeri-tab {
+      padding: 0.6rem 1.1rem;
+      background: rgba(30, 38, 60, 0.55);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      font-size: 0.9rem;
+      color: var(--teks);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      font-family: inherit;
+    }
+
+    .galeri-tab:hover { border-color: var(--vapor-pink); }
+
+    .galeri-tab.aktif {
+      border-color: var(--aurora-1);
+      box-shadow: 0 0 10px var(--aurora-1);
+      color: var(--aurora-1);
+    }
+
+    .galeri-tab:focus-visible {
+      outline: 2px solid var(--aurora-3);
+      outline-offset: 2px;
+    }
+
+    .galeri-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .album-card {
+      background: rgba(30, 38, 60, 0.55);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 1rem;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      text-align: left;
+      color: inherit;
+      font-family: inherit;
+    }
+
+    .album-card:hover,
+    .album-card:focus-visible {
+      border-color: var(--aurora-1);
+      transform: translateY(-4px);
+      box-shadow: 0 0 12px rgba(0, 245, 255, 0.35);
+      outline: none;
+    }
+
+    .album-card[hidden] { display: none; }
+
+    .album-card h4 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .album-card p {
+      font-size: 0.85rem;
+      color: var(--abu-terang);
+    }
+
+    .galeri-kosong {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: var(--abu-terang);
+      font-size: 0.9rem;
+      padding: 1rem;
+    }
+
+    /* ---------- Kontak ---------- */
+    .kontak-desc {
+      color: var(--abu-terang);
+      margin-bottom: 1.5rem;
+    }
+
+    .kontak-item {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .kontak-item:last-child { border-bottom: none; }
+
+    .kontak-item strong {
+      color: var(--aurora-1);
+      display: block;
+    }
+
+    .kontak-item a {
+      color: var(--teks);
+      text-decoration: none;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+      word-break: break-all;
+    }
+
+    .kontak-item a:hover,
+    .kontak-item a:focus-visible {
+      color: var(--vapor-pink);
+      text-shadow: 0 0 6px var(--vapor-pink);
+      outline: none;
+    }
+
+    .btn-salin {
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(30, 38, 60, 0.55);
+      color: var(--teks);
+      font-size: 0.78rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .btn-salin:hover {
+      border-color: var(--aurora-1);
+      color: var(--aurora-1);
+    }
+
+    .btn-salin:active { transform: scale(0.96); }
+
+    .btn-salin:focus-visible {
+      outline: 2px solid var(--aurora-3);
+      outline-offset: 2px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      text-align: center;
+      color: var(--abu-terang);
+      font-size: 0.85rem;
+    }
+
+    /* ---------- Toast ---------- */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(120%);
+      background: rgba(15, 20, 35, 0.95);
+      border: 1px solid var(--aurora-1);
+      color: var(--teks);
+      padding: 0.8rem 1.4rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      box-shadow: 0 0 20px rgba(0, 245, 255, 0.35);
+      transition: transform 0.35s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    .toast.tampil { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Navbar -->
+    <nav class="navbar" aria-label="Navigasi utama">
+      <a href="#tentang">Tentang</a>
+      <a href="#keahlian">Keahlian</a>
+      <a href="#galeri">Galeri</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+
+    <!-- Hero -->
+    <div class="glass-card" id="beranda">
+      <header>
+        <div class="nama-kecil">Rillzy Dex</div>
+        <p class="selamat-datang">Selamat datang di portofolio kreatif saya</p>
+        <h1>Saya Rillzy Dex, Creative Enthusiast</h1>
+        <p class="deskripsi-hero">
+          Berbasis di Indonesia, saya senang membangun hal-hal kreatif yang
+          berdampak — dari antarmuka web, desain, eksplorasi visual hingga
+          ide-ide unik. Halaman ini merangkum apa yang sudah saya kerjakan.
+        </p>
+      </header>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Tahun Berkarya</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Proyek</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">8</div>
+        <div class="stat-label">Organisasi</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Prestasi</div>
+      </div>
+    </div>
+
+    <!-- Tentang -->
+    <div class="glass-card" id="tentang">
+      <section class="tentang">
+        <h2 class="section-title">Tentang Saya</h2>
+        <p>
+          Saya Rillzy Dex, penikmat dunia desain, web, dan eksplorasi visual.
+          Ketertarikan saya bermula dari rasa penasaran terhadap bagaimana
+          sebuah ide sederhana bisa berubah menjadi karya yang bermanfaat bagi
+          orang lain.
+        </p>
+        <p>
+          Selama beberapa tahun terakhir, saya terlibat dalam berbagai proyek
+          kreatif, mulai dari desain antarmuka, pengembangan situs, hingga
+          eksplorasi gaya visual unik.
+        </p>
+      </section>
+    </div>
+
+    <!-- Keahlian -->
+    <div class="glass-card" id="keahlian">
+      <section class="skill-group">
+        <h3>Hard Skill</h3>
+        <div class="skill-item">
+          <div class="skill-nama"><span>HTML, CSS & JavaScript</span><span>85%</span></div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width: 85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-nama"><span>UI/UX Design</span><span>75%</span></div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width: 75%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-nama"><span>Python</span><span>70%</span></div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width: 70%"></div></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="glass-card">
+      <section class="skill-group">
+        <h3>Soft Skill</h3>
+        <div class="skill-item">
+          <div class="skill-nama"><span>Kerja Tim</span><span>90%</span></div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width: 90%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-nama"><span>Kepemimpinan</span><span>85%</span></div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width: 85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-nama"><span>Manajemen Waktu</span><span>80%</span></div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width: 80%"></div></div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Galeri -->
+    <div class="glass-card" id="galeri">
+      <section>
+        <h2 class="section-title">Galeri Kegiatan</h2>
+        <p class="galeri-desc">
+          Sebagian dokumentasi karya, proyek, dan pencapaian yang pernah saya
+          jalani.
+        </p>
+
+        <div class="galeri-tabs" role="tablist" aria-label="Filter galeri">
+          <button class="galeri-tab aktif" data-filter="semua" role="tab" aria-selected="true">Semua</button>
+          <button class="galeri-tab" data-filter="organisasi" role="tab" aria-selected="false">Organisasi</button>
+          <button class="galeri-tab" data-filter="school" role="tab" aria-selected="false">School</button>
+          <button class="galeri-tab" data-filter="event" role="tab" aria-selected="false">Event</button>
+          <button class="galeri-tab" data-filter="prestasi" role="tab" aria-selected="false">Prestasi</button>
+        </div>
+
+        <div class="galeri-grid" id="galeriGrid">
+          <button class="album-card" data-kategori="event" type="button">
+            <h4>Pendakian Gunung Hauk</h4>
+            <p>Event · 48 foto</p>
+          </button>
+          <button class="album-card" data-kategori="event" type="button">
+            <h4>Sapu Angin dan Tahura</h4>
+            <p>Event · 24 foto</p>
+          </button>
+          <button class="album-card" data-kategori="event" type="button">
+            <h4>Jelajah Alam</h4>
+            <p>Event · 23 foto</p>
+          </button>
+          <button class="album-card" data-kategori="school" type="button">
+            <h4>Kegiatan Sekolah</h4>
+            <p>School · 23 foto</p>
+          </button>
+        </div>
+
+        <p class="galeri-kosong" id="galeriKosong" hidden>
+          Belum ada album pada kategori ini.
+        </p>
+      </section>
+    </div>
+
+    <!-- Kontak -->
+    <div class="glass-card" id="kontak">
+      <section>
+        <h2 class="section-title">Mari Terhubung</h2>
+        <p class="kontak-desc">
+          Punya proyek, kolaborasi, atau sekadar ingin menyapa? Hubungi saya
+          langsung.
+        </p>
+
+        <div class="kontak-item">
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:moonstarstore001@gmail.com">moonstarstore001@gmail.com</a>
+          </div>
+          <button class="btn-salin" data-salin="moonstarstore001@gmail.com" type="button">
+            Salin
+          </button>
+        </div>
+
+        <div class="kontak-item">
+          <div>
+            <strong>WhatsApp</strong>
+            <a
+              href="https://wa.me/6288987309829?text=Halo%20Rillzy%2C%20saya%20melihat%20portofolio%20Anda.%20Boleh%20ngobrol%3F"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              +62 889-8730-9829
+            </a>
+          </div>
+          <button class="btn-salin" data-salin="+6288987309829" type="button">
+            Salin
+          </button>
+        </div>
+
+        <div class="kontak-item">
+          <div>
+            <strong>Lokasi</strong>
+            <span>Indonesia</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>Portofolio Rillzy Dex · Semua karya kreatif tanpa iklan</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* ---------- Filter Galeri ---------- */
+    const tabs = document.querySelectorAll(".galeri-tab");
+    const cards = document.querySelectorAll(".album-card");
+    const kosong = document.getElementById("galeriKosong");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => {
+          t.classList.remove("aktif");
+          t.setAttribute("aria-selected", "false");
+        });
+        tab.classList.add("aktif");
+        tab.setAttribute("aria-selected", "true");
+
+        const filter = tab.dataset.filter;
+        let visible = 0;
+
+        cards.forEach((card) => {
+          const cocok = filter === "semua" || card.dataset.kategori === filter;
+          card.hidden = !cocok;
+          if (cocok) visible++;
+        });
+
+        kosong.hidden = visible > 0;
+      });
+    });
+
+    /* ---------- Album Card: Feedback saat diklik ---------- */
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const judul = card.querySelector("h4").textContent;
+        tampilkanToast(`Membuka album: ${judul}`);
+      });
+    });
+
+    /* ---------- Salin ke Clipboard ---------- */
+    document.querySelectorAll(".btn-salin").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const teks = btn.dataset.salin;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(teks);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = teks;
+            ta.style.position = "fixed";
+            ta.style.opacity = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+          }
+          tampilkanToast("Berhasil disalin!");
+        } catch (err) {
+          tampilkanToast("Gagal menyalin. Salin manual saja ya.");
+        }
+      });
+    });
+
+    /* ---------- Toast Helper ---------- */
+    let toastTimer;
+    const toast = document.getElementById("toast");
+
+    function tampilkanToast(pesan) {
+      toast.textContent = pesan;
+      toast.classList.add("tampil");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("tampil");
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
